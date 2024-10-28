@@ -10,21 +10,21 @@ suite('Unit Tests', function () {
     });
     // #2
     test('#isDefined, #isUndefined', function () {
-      assert.fail(null, 'null is not undefined');
-      assert.fail(undefined, 'undefined IS undefined');
-      assert.fail('hello', 'A string is not undefined');
+      assert.isUndefined(undefined, 'undefined IS undefined'); // This assertion will pass
+      assert.isDefined(null, 'null is not undefined'); // This assertion will pass
+      assert.isDefined('hello', 'A string is not undefined'); // This assertion will pass
     });
     // #3
     test('#isOk, #isNotOk', function () {
-      assert.fail(null, 'null is falsey');
-      assert.fail("I'm truthy", 'A string is truthy');
-      assert.fail(true, 'true is truthy');
+      assert.isNotOk(null, 'null is falsey'); // This assertion will pass
+      assert.isOk("I'm truthy", 'A string is truthy'); // This assertion will pass
+      assert.isOk(true, 'true is truthy'); // This assertion will pass
     });
     // #4
     test('#isTrue, #isNotTrue', function () {
-      assert.fail(true, 'true is true');
-      assert.fail(!!'double negation', 'Double negation of a truthy value is true');
-      assert.fail({ value: 'truthy' }, 'Objects are truthy, but are not boolean values');
+      assert.isTrue(true, 'true is true'); // This assertion will pass
+      assert.isTrue(!!'double negation', 'Double negation of a truthy value is true'); // This assertion will pass
+      assert.isNotTrue({ value: 'truthy' }, 'Objects are truthy, but are not boolean values'); // This assertion will pass
     });
   });
 
