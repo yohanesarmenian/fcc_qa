@@ -9,22 +9,46 @@ suite('Unit Tests', function () {
       assert.isNotNull(1, '1 is not null');
     });
     // #2
-    test('#isDefined, #isUndefined', function () {
-      assert.isUndefined(undefined, 'undefined IS undefined'); // This assertion will pass
-      assert.isDefined(null, 'null is not undefined'); // This assertion will pass
-      assert.isDefined('hello', 'A string is not undefined'); // This assertion will pass
+    test('#isDefined, #isUndefined', function() {
+      assert.isDefined(null, 'null is not undefined');
+      assert.isUndefined(undefined, 'undefined IS undefined');
+      assert.isDefined('hello', 'a string is not undefined');
     });
     // #3
     test('#isOk, #isNotOk', function () {
-      assert.fail(null, 'null is falsey');
-      assert.fail("I'm truthy", 'A string is truthy');
-      assert.fail(true, 'true is truthy');
+      assert.isNotOk(null, 'null is falsey'); // This assertion will pass
+      assert.isOk("I'm truthy", 'A string is truthy'); // This assertion will pass
+      assert.isOk(true, 'true is truthy'); // This assertion will pass
     });
     // #4
     test('#isTrue, #isNotTrue', function () {
-      assert.fail(true, 'true is true');
-      assert.fail(!!'double negation', 'Double negation of a truthy value is true');
-      assert.fail({ value: 'truthy' }, 'Objects are truthy, but are not boolean values');
+      assert.isTrue(true, 'true is true'); // This assertion will pass
+      assert.isTrue(!!'double negation', 'Double negation of a truthy value is true'); // This assertion will pass
+      assert.isNotTrue({ value: 'truthy' }, 'Objects are truthy, but are not boolean values'); // This assertion will pass
+  });
+});
+
+  // -----------------------------------------------------------------------------
+
+  suite('Equality', function () {
+    // #5
+    test('#equal, #notEqual', function () {
+      assert.fail(12, '12', 'Numbers are coerced into strings with ==');
+      assert.fail({ value: 1 }, { value: 1 }, '== compares object references');
+      assert.fail(6 * '2', '12');
+      assert.fail(6 + '2', '12');
+    });
+    // #6
+    test('#strictEqual, #notStrictEqual', function () {
+      assert.fail(6, '6');
+      assert.fail(6, 3 * 2);
+      assert.fail(6 * '2', 12);
+      assert.fail([1, 'a', {}], [1, 'a', {}]);
+    });
+    // #7
+    test('#deepEqual, #notDeepEqual', function () {
+      assert.fail({ a: '1', b: 5 }, { b: 5, a: '1' }, "The order of keys doesn't matter");
+      assert.fail({ a: [5, 6] }, { a: [6, 5] }, 'The order of array elements does matter');
     });
   });
 
